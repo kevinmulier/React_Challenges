@@ -8,6 +8,7 @@ Bin2Dec Converter is a web application developed using React and Vite, aimed at 
 
 - **React Framework**: Utilizes React to deliver a dynamic and responsive user interface, enhancing the learning experience.
 - **Vite for Development**: Employs Vite for efficient, fast development cycles with features like instant server start and hot module replacement.
+- **Binary to Decimal Conversion**: Allows users to input up to 8 binary digits (0's and 1's) and calculates the decimal equivalent.
 - **Input Validation**: Ensures that users enter valid binary digits (0 or 1) and provides immediate feedback if incorrect data is entered.
 - **Single Mathematical Function Calculation**: Implements the conversion logic using a single mathematical function, adhering to the challenge constraints without using arrays to store binary digits.
 
