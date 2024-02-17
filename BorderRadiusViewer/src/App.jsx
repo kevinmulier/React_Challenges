@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RadiusInput from './components/RadiusInput';
 
 function App() {
@@ -8,6 +8,17 @@ function App() {
     bottomLeft: 0,
     bottomRight: 0,
   });
+  const [boxRadiusStyle, setBoxRadiusStyle] = useState('');
+
+  useEffect(() => {
+    if (Object.values(radius).some((element) => element !== 0)) {
+      setBoxRadiusStyle(
+        `border-radius: ${radius.topLeft}% ${radius.topRight}% ${radius.bottomRight}% ${radius.bottomLeft}%`,
+      );
+    } else {
+      setBoxRadiusStyle(``);
+    }
+  }, [radius]);
 
   const handleRadiusChange = (corner, value) => {
     setRadius((v) => {
@@ -15,7 +26,9 @@ function App() {
     });
   };
 
-  let boxRadiusStyle = `border-radius: ${radius.topLeft}% ${radius.topRight}% ${radius.bottomRight}% ${radius.bottomLeft}%`;
+  const copyCode = () => {
+    navigator.clipboard.writeText(`${boxRadiusStyle};`);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center max-w-3xl gap-8 p-5 mx-auto">
@@ -54,9 +67,16 @@ function App() {
       {boxRadiusStyle && (
         <>
           <h2>CSS code</h2>
-          <p className="p-5 text-xs italic whitespace-pre-line w-fit rounded-box bg-base-300">
-            {`border-radius: ${radius.topLeft}% ${radius.topRight}% ${radius.bottomRight}% ${radius.bottomLeft}%;`}
-          </p>
+          <div className="relative flex flex-col p-5 pt-10 w-fit rounded-box bg-base-300">
+            <button
+              className="absolute top-2 right-2 btn btn-xs"
+              onClick={copyCode}>
+              Copy
+            </button>
+            <p className="text-xs italic whitespace-pre-line">
+              {`border-radius: ${radius.topLeft}% ${radius.topRight}% ${radius.bottomRight}% ${radius.bottomLeft}%;`}
+            </p>
+          </div>
         </>
       )}
     </div>
