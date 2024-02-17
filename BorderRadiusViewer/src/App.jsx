@@ -65,19 +65,19 @@ function App() {
         </div>
       </div>
       {boxRadiusStyle && (
-        <>
-          <h2>CSS code</h2>
-          <div className="relative flex flex-col p-5 pt-10 w-fit rounded-box bg-base-300">
-            <button
-              className="absolute top-2 right-2 btn btn-xs"
-              onClick={copyCode}>
-              Copy
-            </button>
+        <div className="flex flex-col items-center justify-center gap-2">
+          <h2 className="text-lg font-semibold">CSS code</h2>
+          <div className="relative flex flex-col p-5 pb-10 w-fit rounded-box bg-base-300">
             <p className="text-xs italic whitespace-pre-line">
               {`border-radius: ${radius.topLeft}% ${radius.topRight}% ${radius.bottomRight}% ${radius.bottomLeft}%;`}
             </p>
+            <button
+              className="absolute bottom-2 right-2 btn btn-xs"
+              onClick={copyCode}>
+              Copy
+            </button>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
