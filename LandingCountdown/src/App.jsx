@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import TimeRemaining from './components/TimeRemaining';
 
 function App() {
   const [countdown, setCountdown] = useState({
@@ -10,15 +11,29 @@ function App() {
   });
 
   return (
-    <div className="container flex flex-col items-center justify-center px-10 py-20 mx-auto gap-28">
+    <div className="container flex flex-col items-center justify-center px-1 py-20 mx-auto gap-28">
       <p className="text-4xl font-bold text-center">Until new beginnings</p>
-      <section className="flex justify-around gap-5">
-        <div className="flex flex-col items-center justify-center">
-          <span className="font-mono font-bold text-[8rem] leading-[0.75]">
-            2
-          </span>
-          <span className="text-xl">months</span>
-        </div>
+      <section className="flex w-full max-w-3xl justify-evenly">
+        <TimeRemaining
+          value={countdown.months}
+          unit={'months'}
+        />
+        <TimeRemaining
+          value={countdown.days}
+          unit={'days'}
+        />
+        <TimeRemaining
+          value={countdown.hours}
+          unit={'hours'}
+        />
+        <TimeRemaining
+          value={countdown.minutes}
+          unit={'minutes'}
+        />
+        <TimeRemaining
+          value={countdown.seconds}
+          unit={'seconds'}
+        />
       </section>
     </div>
   );
