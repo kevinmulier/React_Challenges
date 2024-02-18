@@ -12,7 +12,9 @@ function App() {
 
   return (
     <div className="container flex flex-col items-center justify-center px-1 py-20 mx-auto gap-28">
-      <p className="text-4xl font-bold text-center">Until new beginnings</p>
+      <p className="text-4xl font-bold text-center max-sm:text-2xl">
+        Revealing the future in
+      </p>
       <section className="flex w-full max-w-3xl justify-evenly">
         <TimeRemaining
           value={countdown.months}
