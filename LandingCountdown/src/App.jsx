@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import TimeRemaining from './components/TimeRemaining';
 
 function App() {
-  const newYears = '1 Jan 2025';
+  const newYears = '21 Sep 2024';
   const [countdown, setCountdown] = useState({
     months: 0,
     days: 0,
@@ -40,13 +40,15 @@ function App() {
         Revealing the future in
       </p>
       <section className="flex w-full max-w-3xl justify-evenly">
-        {Object.keys(countdown).map((key) => (
-          <TimeRemaining
-            key={key}
-            value={formatTime(countdown[key])}
-            unit={key}
-          />
-        ))}
+        {Object.keys(countdown).map((key) => {
+          return countdown[key] > 0 ? (
+            <TimeRemaining
+              key={key}
+              value={formatTime(countdown[key])}
+              unit={key}
+            />
+          ) : null;
+        })}
       </section>
     </div>
   );
