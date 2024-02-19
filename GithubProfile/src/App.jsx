@@ -1,6 +1,7 @@
-import axios from 'axios';
-import { Folder, Search, UserCheck } from 'lucide-react';
+import { Folder, UserCheck } from 'lucide-react';
 import { useState } from 'react';
+import SearchForm from './components/SearchForm';
+import PendingSkeleton from './components/PendingSkeleton';
 
 function App() {
   const [username, setUsername] = useState('');
@@ -8,53 +9,20 @@ function App() {
   const [pendingRequest, setPendingRequest] = useState(false);
   const [fetchError, setFetchError] = useState('');
 
-  const searchUserInfos = async (username) => {
-    try {
-      setPendingRequest(true);
-      setFetchError('');
-      const infos = await axios.get(`https://api.github.com/users/${username}`);
-      setUserInfos(infos.data);
-      setPendingRequest(false);
-    } catch (e) {
-      setUserInfos(null);
-      setFetchError(`Couldn't find user ${username}`);
-      setPendingRequest(false);
-    }
-  };
-
   if (pendingRequest) {
-    return (
-      <>
-        <section className="flex items-center justify-center w-full max-w-xl gap-8 p-4 sm:px-10 sm:py-6 rounded-2xl max-sm:flex-col bg-gradient-to-br from-base-100 to-base-300">
-          <div className="w-20 h-20 rounded-full aspect-square skeleton"></div>
-          <article className="flex flex-col gap-2">
-            <div className="w-24 h-4 skeleton"></div>
-            <div className="w-20 h-4 mb-4 skeleton"></div>
-            <div className="w-40 h-4 skeleton"></div>
-            <div className="w-40 h-4 skeleton"></div>
-          </article>
-        </section>
-      </>
-    );
+    return <PendingSkeleton />;
   }
 
   if (userInfos === null) {
     return (
       <>
-        <div className="flex justify-center max-w-sm gap-3 mx-auto mb-5">
-          <input
-            type="text"
-            className="input input-bordered"
-            placeholder="Search by username..."
-            value={username}
-            onChange={(e) => setUsername(e.target.value.toLowerCase())}
-          />
-          <button
-            className="btn btn-outline"
-            onClick={() => searchUserInfos(username)}>
-            <Search />
-          </button>
-        </div>
+        <SearchForm
+          username={username}
+          setUsername={setUsername}
+          setUserInfos={setUserInfos}
+          setPendingRequest={setPendingRequest}
+          setFetchError={setFetchError}
+        />
         {fetchError && <p className="alert alert-error">{fetchError}</p>}
       </>
     );
@@ -62,20 +30,13 @@ function App() {
 
   return (
     <>
-      <div className="flex justify-center max-w-sm gap-3 mx-auto mb-5">
-        <input
-          type="text"
-          className="input input-bordered"
-          placeholder="Search by username..."
-          value={username}
-          onChange={(e) => setUsername(e.target.value.toLowerCase())}
-        />
-        <button
-          className="btn btn-outline"
-          onClick={() => searchUserInfos(username)}>
-          <Search />
-        </button>
-      </div>
+      <SearchForm
+        username={username}
+        setUsername={setUsername}
+        setUserInfos={setUserInfos}
+        setPendingRequest={setPendingRequest}
+        setFetchError={setFetchError}
+      />
       <section className="flex items-center justify-center w-full max-w-xl gap-8 p-4 sm:px-10 sm:py-6 rounded-2xl max-sm:flex-col bg-gradient-to-br from-base-100 to-base-300">
         <img
           src={userInfos.avatar_url}
